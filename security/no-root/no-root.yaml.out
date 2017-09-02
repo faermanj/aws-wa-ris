@@ -1,0 +1,46 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Notifies root access
+Resources:
+  FnNoRoot:
+    Properties:
+      CodeUri: s3://code-bucket-20170827t195324z-codebucket-tp760wrhohvy/e77dcea4cf23f4a457ed02b80ad5c3bc
+      Environment:
+        Variables:
+          COE_TOPIC:
+            Fn::ImportValue: coe-topic
+      Handler: index.handler
+      MemorySize: 128
+      Policies:
+      - Statement:
+        - Action: sns:Publish
+          Effect: Allow
+          Resource: '*'
+        Version: '2012-10-17'
+      Runtime: nodejs6.10
+      Timeout: 5
+    Type: AWS::Serverless::Function
+  FnNoRootPermission:
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Ref: FnNoRoot
+      Principal:
+        Fn::Join:
+        - .
+        - - logs
+          - Ref: AWS::Region
+          - amazonaws.com
+    Type: AWS::Lambda::Permission
+  NoRootFilter:
+    DependsOn: FnNoRootPermission
+    Properties:
+      DestinationArn:
+        Fn::GetAtt:
+        - FnNoRoot
+        - Arn
+      FilterPattern: '{ $.userIdentity.type = "Root" && $.userIdentity.invokedBy NOT
+        EXISTS && $.eventType != "AwsServiceEvent" }'
+      LogGroupName:
+        Fn::ImportValue: audit-loggroup
+    Type: AWS::Logs::SubscriptionFilter
+Transform: AWS::Serverless-2016-10-31

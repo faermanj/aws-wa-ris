@@ -1,0 +1,59 @@
+{
+  "eventVersion": "1.05",
+  "userIdentity": {
+    "type": "IAMUser",
+    "principalId": "AIDAIOTCGLU7ZBPBV2UHY",
+    "arn": "arn:aws:iam::030555009967:user/dalek",
+    "accountId": "030555009967",
+    "accessKeyId": "ASIAJPKOV5B3PGCTGVWQ",
+    "userName": "dalek",
+    "sessionContext": {
+      "attributes": {
+        "mfaAuthenticated": "false",
+        "creationDate": "2017-09-01T12:23:16Z"
+      }
+    },
+    "invokedBy": "cloudformation.amazonaws.com"
+  },
+  "eventTime": "2017-09-01T12:23:37Z",
+  "eventSource": "lambda.amazonaws.com",
+  "eventName": "CreateFunction20150331",
+  "awsRegion": "us-east-1",
+  "sourceIPAddress": "cloudformation.amazonaws.com",
+  "userAgent": "cloudformation.amazonaws.com",
+  "requestParameters": {
+    "functionName": "no-root-20170901T122307Z-FnNoRoot-WR1BBPFIN3Y4",
+    "role": "arn:aws:iam::030555009967:role/no-root-20170901T122307Z-FnNoRootRole-NIM84MBRL7OU",
+    "memorySize": 128,
+    "resourceLock": false,
+    "code": {
+      "s3Key": "bbc79a64c6913addaa60e9f59f22d9c7",
+      "s3Bucket": "code-bucket-20170827t195324z-codebucket-tp760wrhohvy"
+    },
+    "timeout": 3,
+    "publish": false,
+    "description": "",
+    "handler": "index.handler",
+    "tags": { "lambda:createdBy": "SAM" },
+    "runtime": "nodejs6.10"
+  },
+  "responseElements": {
+    "role": "arn:aws:iam::030555009967:role/no-root-20170901T122307Z-FnNoRootRole-NIM84MBRL7OU",
+    "handler": "index.handler",
+    "memorySize": 128,
+    "runtime": "nodejs6.10",
+    "functionArn": "arn:aws:lambda:us-east-1:030555009967:function:no-root-20170901T122307Z-FnNoRoot-WR1BBPFIN3Y4",
+    "functionName": "no-root-20170901T122307Z-FnNoRoot-WR1BBPFIN3Y4",
+    "codeSize": 375,
+    "version": "$LATEST",
+    "tracingConfig": { "mode": "PassThrough" },
+    "description": "",
+    "lastModified": "2017-09-01T12:23:37.108+0000",
+    "codeSha256": "MT6N9QJk3jAuKrfzUsqVgs5cVwOfB3J2yBazuA/oiCA=",
+    "timeout": 3
+  },
+  "requestID": "61151697-8f10-11e7-8d01-07358f3b8c9e",
+  "eventID": "6bc4a7a8-a996-4fec-8a15-e9b8c6776d9a",
+  "eventType": "AwsApiCall",
+  "recipientAccountId": "030555009967"
+}

@@ -1,0 +1,17 @@
+
+Resources:
+  COEQueue:
+    Type: "AWS::SQS::Queue"
+  COETopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      Subscription:
+        -
+          Endpoint: !GetAtt COEQueue.Arn
+          Protocol: "sqs"
+Outputs:
+  COETopicOut:
+    Description: Cause Of Error Topic
+    Value: !Ref COETopic
+    Export:
+      Name: coe-topic

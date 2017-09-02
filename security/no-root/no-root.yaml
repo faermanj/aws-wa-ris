@@ -1,0 +1,34 @@
+AWSTemplateFormatVersion : '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Notifies root access
+Resources:
+  FnNoRoot:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: index.handler
+      Runtime: nodejs6.10
+      CodeUri: ./src
+      MemorySize: 128
+      Timeout: 5
+      Policies:
+        - Version: '2012-10-17' # Policy Document
+          Statement:
+            - Effect: Allow
+              Action: sns:Publish
+              Resource: '*'
+      Environment:
+        Variables:
+          COE_TOPIC: !ImportValue coe-topic
+  FnNoRootPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: 'lambda:InvokeFunction'
+      FunctionName: !Ref FnNoRoot
+      Principal: !Join [ ".", [ "logs", !Ref "AWS::Region", "amazonaws.com" ] ]
+  NoRootFilter:
+    Type: AWS::Logs::SubscriptionFilter
+    DependsOn: FnNoRootPermission
+    Properties:
+      DestinationArn: !GetAtt FnNoRoot.Arn
+      FilterPattern: '{ $.userIdentity.type = "Root" && $.userIdentity.invokedBy NOT EXISTS && $.eventType != "AwsServiceEvent" }'
+      LogGroupName: !ImportValue audit-loggroup

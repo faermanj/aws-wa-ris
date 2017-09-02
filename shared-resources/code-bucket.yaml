@@ -1,0 +1,9 @@
+Resources:
+  CodeBucket:
+    Type: "AWS::S3::Bucket"
+Outputs:
+  CodeBucketOut:
+    Description: Code Bucket for Lambda Functions
+    Value: !Ref CodeBucket
+    Export:
+      Name: code-bucket
