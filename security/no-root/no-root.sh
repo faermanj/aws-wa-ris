@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
-STACK_ID="no-root"
-
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-TSTAMP="$(date -u +"%Y%m%dT%H%M%SZ")"
-
-STACK_NAME="$STACK_ID-$TSTAMP"
-TEMPLATE_FILE="$DIR/${STACK_ID}.yaml"
-TEMPLATE_FILE_OUT="${TEMPLATE_FILE}.out"
+FILE=$(basename "${BASH_SOURCE[0]}")
+STACK_NAME="${FILE%.*}"
+TEMPLATE_FILE="$DIR/${STACK_NAME}.yaml"
+TEMPLATE_FILE_OUT="${DIR}/target/${STACK_NAME}.yaml.out"
+CODE_BUCKET=$(aws cloudformation describe-stack-resources \
+  --stack-name "code-bucket" \
+  --query "StackResources[?LogicalResourceId =='CodeBucket'].PhysicalResourceId" \
+  --output text)
 
 aws cloudformation package \
     --template-file "$TEMPLATE_FILE" \

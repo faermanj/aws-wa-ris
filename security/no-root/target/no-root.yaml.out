@@ -3,7 +3,7 @@ Description: Notifies root access
 Resources:
   FnNoRoot:
     Properties:
-      CodeUri: s3://code-bucket-20170827t195324z-codebucket-tp760wrhohvy/e77dcea4cf23f4a457ed02b80ad5c3bc
+      CodeUri: s3://code-bucket-codebucket-13xzx4onb8ets/3036b2759d5ec4924e25b077e1025cd6
       Environment:
         Variables:
           COE_TOPIC:

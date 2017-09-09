@@ -1,10 +1,8 @@
 #!/usr/bin/env bash
-
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-STACK_ID="audit-trail"
-TSTAMP="$(date -u +"%Y%m%dT%H%M%SZ")"
-STACK_NAME="$STACK_ID-$TSTAMP"
-TEMPLATE_FILE="$DIR/$STACK_ID.yaml"
+FILE=$(basename "${BASH_SOURCE[0]}")
+STACK_NAME="${FILE%.*}"
+TEMPLATE_FILE="$DIR/${STACK_NAME}.yaml"
 
 aws cloudformation deploy \
   --stack-name "$STACK_NAME" \

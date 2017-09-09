@@ -1,3 +1,4 @@
+Description: Log AWS API calls for auditing
 Resources:
   AuditBucket:
     Type: "AWS::S3::Bucket"
@@ -23,6 +24,9 @@ Resources:
             Action:
               - "s3:PutObject"
             Resource: !Join [ "", [!GetAtt AuditBucket.Arn,"/AWSLogs/", !Ref "AWS::AccountId" ,"/*"]]
+            Condition:
+              StringEquals:
+                s3:x-amz-acl: bucket-owner-full-control
   AuditGroup:
     Type: "AWS::Logs::LogGroup"
   AuditRole:
@@ -47,13 +51,16 @@ Resources:
               -
                 Effect: "Allow"
                 Action: "logs:CreateLogStream"
-                Resource: !Join [ ":", [ "arn:aws:logs", !Ref "AWS::Region", !Ref "AWS::AccountId", "log-group", !Ref "AuditGroup", "log-stream", "*" ] ]
+                Resource:
+                  - !Sub ${AuditGroup.Arn}
               -
                 Effect: "Allow"
                 Action: "logs:PutLogEvents"
-                Resource: !Join [ ":", [ "arn:aws:logs", !Ref "AWS::Region", !Ref "AWS::AccountId", "log-group", !Ref "AuditGroup", "log-stream", "*" ] ]
-
+                Resource:
+                  - !Sub ${AuditGroup.Arn}
   AuditTrail:
+    DependsOn:
+        - AuditBucketPolicy
     Type: "AWS::CloudTrail::Trail"
     Properties:
       CloudWatchLogsLogGroupArn: !GetAtt AuditGroup.Arn

@@ -1,9 +1,10 @@
+Description: Store code for AWS Lambda functions
 Resources:
   CodeBucket:
     Type: "AWS::S3::Bucket"
 Outputs:
   CodeBucketOut:
-    Description: Code Bucket for Lambda Functions
+    Description: Code Bucket Name
     Value: !Ref CodeBucket
     Export:
       Name: code-bucket
