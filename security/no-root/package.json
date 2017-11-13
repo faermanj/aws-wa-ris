@@ -1,0 +1,16 @@
+{
+  "name": "no-root",
+  "version": "1.0.0",
+  "description": "Fires an event when root logs in https://aws.amazon.com/blogs/security/how-to-receive-notifications-when-your-aws-accounts-root-access-keys-are-used/",
+  "main": "src/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "package": "pack-zip",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "bluebird": "^3.5.1"
+  }
+}

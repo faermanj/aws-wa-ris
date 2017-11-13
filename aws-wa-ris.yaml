@@ -1,0 +1,20 @@
+Description: All Resources
+Resources:
+  CodeBucket:
+    Type: "AWS::CloudFormation::Stack"
+    Properties:
+      TemplateURL: ./shared-resources/code-bucket.yaml
+  COETopic:
+    Type: "AWS::CloudFormation::Stack"
+    Properties:
+      TemplateURL: ./shared-resources/coe-topic.yaml
+  AuditTrail:
+    Type: "AWS::CloudFormation::Stack"
+    DependsOn: "CodeBucket"
+    Properties:
+      TemplateURL: ./security/audit-trail/audit-trail.yaml
+  NoRoot:
+    Type: "AWS::CloudFormation::Stack"
+    DependsOn: ["AuditTrail","COETopic"]
+    Properties:
+      TemplateURL: ./security/no-root/target/no-root.out.yaml
