@@ -1,0 +1,16 @@
+Description: TLS Certificate
+Parameters:
+  DomainName:
+    Type: String
+Resources:
+  TLSCertificate:
+    Type: AWS::CertificateManager::Certificate
+    Properties: 
+      DomainName: !Sub '*.${DomainName}'
+      SubjectAlternativeNames: [!Ref DomainName]
+Outputs:
+  TLSCertificateId:
+    Description: Certificate ID
+    Value: !Ref TLSCertificate
+    Export:
+      Name: certificate-arn

@@ -1,0 +1,14 @@
+Description: DNS Hosted Zone
+Parameters:
+  DomainName:
+    Type: String
+Resources:
+  HostedZone:
+    Type: AWS::Route53::HostedZone
+    Properties: 
+      Name: !Ref DomainName
+Outputs:
+  ZoneID:
+    Value: !Ref HostedZone
+    Export:
+      Name: zone-id

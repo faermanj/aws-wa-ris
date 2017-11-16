@@ -1,0 +1,18 @@
+Description: Admin User
+Parameters:
+  AdminPassword:
+    Type: String
+Resources:
+  AdminGroup:
+    Type: AWS::IAM::Group
+    Properties:
+      GroupName: Administrators
+      ManagedPolicyArns: ['arn:aws:iam::aws:policy/PowerUserAccess']
+  AdminUser:
+    Type: AWS::IAM::User
+    Properties: 
+      Groups: ['Administrators']
+      UserName: admin
+      LoginProfile:
+        Password: !Ref AdminPassword
+        PasswordResetRequired: false

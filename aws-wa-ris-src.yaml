@@ -1,5 +1,0 @@
-Description: Pipeline from Source to Distribution
-Resources:
-  RISrcPipeline:
-    Type: 
-    Properties: 
