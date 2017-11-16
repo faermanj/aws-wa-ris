@@ -8,6 +8,7 @@ CODE_BUCKET=$(aws cloudformation describe-stack-resources \
   --stack-name "code-bucket" \
   --query "StackResources[?LogicalResourceId =='CodeBucket'].PhysicalResourceId" \
   --output text)
+ADMIN_PASSWORD="changemeplease"
 
 rm -rf ./target
 mkdir ./target
@@ -25,4 +26,5 @@ aws cloudformation package \
 aws cloudformation create-stack \
     --template-body "file://$TEMPLATE_FILE_OUT" \
     --stack-name "$STACK_NAME" \
-    --capabilities CAPABILITY_IAM
+    --capabilities CAPABILITY_NAMED_IAM \
+    --parameters "ParameterKey=AdminPassword,ParameterValue=$ADMIN_PASSWORD"
