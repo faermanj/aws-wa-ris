@@ -1,3 +1,6 @@
 node_modules
 target
+.ipynb_checkpoints
+.Trash-1000
+jupyter/.ipynb_checkpoints
 
